@@ -67,7 +67,7 @@ The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Bui
 
 | Week | Date and topic    |  Date and Topic   |
 |:----:| ---------------------- | ---------------------- |
-| 1 | **Mar 31** [slides](slides/1_overview.pdf) <br /> Course planning; Linking hypotheses; Experimental design basics <br /> [Tanenhaus 2004](https://canvas.stanford.edu/files/12702648/download?download_frd=1); [Ch. 7 of R & R](https://canvas.stanford.edu/files/12702657/download?download_frd=1); [Ch. 1, 8, 9 of Experimentology](https://experimentology.io/) | **Apr 2**  <br /> What does it mean to test a theory? <br /> [Popper](https://plato.stanford.edu/entries/popper/#GroHumKno); [Kuhn](https://plato.stanford.edu/entries/thomas-kuhn/#3); [Lakatos](https://en.wikipedia.org/wiki/Imre_Lakatos#Research_programmes)|
+| 1 | **Mar 31** Course planning; Linking hypotheses; Experimental design basics <br /> [Tanenhaus 2004](https://canvas.stanford.edu/files/12702648/download?download_frd=1); [Ch. 7 of R & R](https://canvas.stanford.edu/files/12702657/download?download_frd=1); [Ch. 1, 8, 9 of Experimentology](https://experimentology.io/) | **Apr 2**  <br /> What does it mean to test a theory? <br /> [Popper](https://plato.stanford.edu/entries/popper/#GroHumKno); [Kuhn](https://plato.stanford.edu/entries/thomas-kuhn/#3); [Lakatos](https://en.wikipedia.org/wiki/Imre_Lakatos#Research_programmes)|
 | 2 | **Apr 7** NO CLASS -- MLK DAY <br /> `Skills:` [git tutorial](https://sebschu.github.io/web-based-experiments/tutorials/git/); GitHub repo organization |  **Apr 9** <br /> `SI:` response times  <br />  [Bott & Noveck 2004](https://canvas.stanford.edu/files/12702646/download?download_frd=1) (Grace); [Kursat & Degen 2020](https://canvas.stanford.edu/files/12702668/download?download_frd=1) |
 | 3 | **Apr 14** <br /> `SI:` reading times <br />  [Breheny et al 2006](https://canvas.stanford.edu/files/12702666/download?download_frd=1) (Anjali); [Politzer-Ahles & Husband 2018](https://canvas.stanford.edu/files/12702669/download?download_frd=1) (Wilfred) | **Apr 16** <br /> `SI:` visual world eye-tracking <br />  [Huang & Snedeker 2009](https://canvas.stanford.edu/files/12702665/download?download_frd=1), p. 376-390 (Ting), 404-410; [Sun & Breheny 2020](https://canvas.stanford.edu/files/12702667/download?download_frd=1), p. 949-956, 971-978 (Siva) |
 | 4 | **Apr 21**  <br />  `Project:` Lightning presentations    | **Apr 23** [slides](slides/2_webbased_experiments.pdf) <br />  `Skills:` [Programming experiments in jsPsych](https://sebschu.github.io/web-based-experiments/tutorials/jsPsych/)   |
@@ -83,27 +83,15 @@ The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Bui
 
 | Week | Action |
 |:----:|:----|
-| 1 | Select an experiment to replicate/run. Email JD your choice and [schedule a 30 min meeting](https://jdegen.youcanbook.me/) for week 2. <br /> *Work through [UNIX tutorial](http://www.ee.surrey.ac.uk/Teaching/Unix/).*  |
-| 2 | Meet with JD to discuss project and email JD the link to your project repo. |
-| 3 | Finalize conceptual design and stimuli of experiment. |
-| 4 | Give lightning project presentation and start implementing experiment. |
-| 5 | Finish first draft of experiment (general infrastructure, including data recording) and pre-reg. Email JD link to pre-reg draft. Push experiment to repo. |
-| 6 | Finalize experiment (including all stimuli) and pre-reg. Push experiment to repo. Email JD link to experiment. |
+| 1 | Pick paper to replicate, send choice to teaching staff. |
+| 2 | Meet about your project with point person. |
+| 3 | Create a GitHub repo for your project, initialize jspsych, add stimuli. |
+| 4 | Give lightning project presentation and start continue implementing experiment. |
+| 5 | Submit first draft of experiment and pre-registration. |
+| 6 | Implement feedback, submit final version. |
 | 7 | Run experiment. Push anonymized data to repo. |
-| 8 | Analyze and visualize data. Push R scripts and graphs to repo. |
-| 9, 10 | Present project. |
-| 11 | Submit writeup (either include in repo or email JD). |
+| 8 | Analyze data. Push R scripts to repo. |
+| 9 | Visualize data. Push figures to repo. |
+| 10 | Present project. |
+| 11 | Submit writeup. |
 
-
-
-<!-- IMPLICATURE 2
-huang & snedeker 2009
-grodner et al 2010
-degen & tanenhaus 2015
-
-breheny et al 2013
- -->
-
-<!-- ALTERNATIVES
-fox & katzier focus & implicature
-nicole gotzner benz solt -->
