@@ -32,9 +32,9 @@ At a practical level, the class is based around conducting a hands-on replicatio
 
 ## Assessment
 
-- 50% final project (experiment replication)
+- 50% weekly project milestones
 
-- 25% presentations (paper and project)
+- 25% presentations (proposal and project)
 
 - 25% in-class participation and posting response posts on readings
 
@@ -53,13 +53,14 @@ If you feel overwhelmed by any of these except (1), don't worry. It will take wo
 
 We'll be making use of original papers, blog posts / online articles, as well as the following textbooks:
 
-1. The bible of mixed effects models: Gelman, A., & Hill, J. (2007). [Data analysis using regression and multilevel/hierarchical models](https://canvas.stanford.edu/files/12702650/download). Cambridge University Press.
-2. Rosenthal, R., & Rosnow, R. L. (2008). Essentials of behavioral research: Methods and data analysis (3rd ed.). McGraw-Hill.
-3. Frank, M.C., Braginsky, M., Cachia, J.,  Coles, N., Hardwicke, T., Hawkins, R., Mathur, M., and Williams, R. [Experimentology: An Open Science Approach to Experimental Psychology Methods](https://experimentology.io/).
+1. Gelman, A., & Hill, J. (2007). [Data analysis using regression and multilevel/hierarchical models](https://canvas.stanford.edu/files/12702650/download). Cambridge University Press.
+3. Frank, M.C., Braginsky, M., Cachia, J.,  Coles, N., Hardwicke, T., Hawkins, R., Mathur, M., and Williams, R. (2025). [Experimentology: An Open Science Approach to Experimental Psychology Methods](https://experimentology.io/). MIT Press. 
 
-## Class projects
+## Course format
 
-Each student will complete a class project, which will be either a replication of a previously published experiment (preferred at the undergraduate level), or an original design (dispreferred, unless clearly building on previous work or unless you've already developed the design; good option for graduate students). Assessment will be based on  lighting project proposal presentations (5 minutes), final project presentations (last week of class) and a 5-10 page writeup (due Jun 13). 
+*Readings & discussion*: Brief 1-2 paragraph responses for Monday readings will be collected in advance to facilitate class discussion (due midnight the night before). 
+
+*Project*: Each student will complete replication of a previously published experiment. Assessment will be based on lighting project proposal presentations (5 minutes), final project presentations (last week of class) and a 5-10 page replication report (due June 6th). Undergraduates are welcome to work in groups, with instructor permission. 
 
 ## Schedule
 
@@ -67,30 +68,29 @@ The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Bui
 
 | Week | 🗣️  Monday    |  💻 Wednesday   |
 |:----:| ---------------------- | ---------------------- |
-| 1 | **Mar 31** <br /> What does it mean to test a theory?  <br /> ✍️  None. | **Apr 2**  <br /> Implement a response time study in JsPsych <br /> ✍️  [Bott & Noveck (2004)](https://canvas.stanford.edu/files/12702646/download?download_frd=1) and Chapters 1, 8, & 9 of [Experimentology](https://experimentology.io). |
-| 2 | **Apr 7**  <br />  <br />  ✍️  None. |  **Apr 9** <br />  <br />  ✍️  None.|
-| 3 | **Apr 14** <br /> `SI:` reading times <br />  [Breheny et al 2006](https://canvas.stanford.edu/files/12702666/download?download_frd=1) (Anjali); [Politzer-Ahles & Husband 2018](https://canvas.stanford.edu/files/12702669/download?download_frd=1) (Wilfred) | **Apr 16** <br /> `SI:` visual world eye-tracking <br />  [Huang & Snedeker 2009](https://canvas.stanford.edu/files/12702665/download?download_frd=1), p. 376-390 (Ting), 404-410; [Sun & Breheny 2020](https://canvas.stanford.edu/files/12702667/download?download_frd=1), p. 949-956, 971-978 (Siva) |
-| 4 | **Apr 21**  <br />  `Project:` Lightning presentations    | **Apr 23** [slides](slides/2_webbased_experiments.pdf) <br />  `Skills:` [Programming experiments in jsPsych](https://sebschu.github.io/web-based-experiments/tutorials/jsPsych/)   |
-| 5 | **Apr 28**  [slides](slides/3_preregistration_open_science.pdf) <br /> Open science and pre-registration   <br /> [Simmons et al 2011](https://canvas.stanford.edu/files/12702652/download?download_frd=1); [Frank & Saxe 2012](https://journals.sagepub.com/doi/full/10.1177/1745691612460686); [Open Science Framework 2015](https://canvas.stanford.edu/files/12702651/download?download_frd=1); [Ch. 3](https://experimentology.io/003-replication.html) and [Ch. 11](https://experimentology.io/011-prereg.html) of Experimentology | **Apr 30** <br /> `Skills:` [Deploying an experiment on GitHub Pages; Using proliferate to post experiments to Prolific](https://sebschu.com/web-based-experiments/tutorials/posting/) <br /> [Degen & Tonhauser 2022](https://canvas.stanford.edu/files/12702670/download?download_frd=1); [Crump et al 2013](https://canvas.stanford.edu/files/12702658/download?download_frd=1) |
-| 6 | **May 5**  [code sheet](code_sheets/4_ggplot.Rmd) <br /> `Data analysis:` visualization with ggplot <br /> [Ch. 15](https://experimentology.io/015-viz.html) of Experimentology  | **May 7** <br /> `Project:` Experiment workshop |
-| 7 | **May 12** <br />  | **May 14** [code sheet](code_sheets/1_linear_regression.R), [slides](slides/4_linear_regression.pdf) <br />  `Data analysis:` estimation, inference, linear regression  <br /> Ch. [5](https://experimentology.io/005-estimation.html), [6](https://experimentology.io/006-inference.html), and [7-7.1.4](https://experimentology.io/007-models.html) of Experimentology|
-| 8 | **May 19** <br /> `Data analysis:` linear regression and coefficient interpretation | **May 21** [code sheet](code_sheets/2_mixed_effects_linear_regression.R), [slides](slides/5_mixed_effects_logistic_regression.pdf) <br /> `Data analysis:` mixed effects linear regression  |
-| 9 | **May 26** <br /> NO CLASS -- MEMORIAL DAY | **May 28** [code sheet data wrangling](code_sheets/3_reformatting_data.R), [code sheet collinearity](code_sheets/6_collinearity_modelcomparison.R), [slides](slides/6_common_issues_solutions.pdf) <br /> `Data analysis:` Frequent issues and solutions in mixed effects modeling; data wrangling |
-| 10 | **Jun 2**  <br />  `Data analysis:` (optional) Ordinal regression; Data analysis workshop  <br /> [Bürkner & Vuorre 2019](https://journals.sagepub.com/doi/pdf/10.1177/2515245918823199) | **Jun 4**  <br /> `Project:` Final presentations | 
+| 1 | **Mar 31** <br /> Course planning. What does it mean to test a theory?  <br /> ✍️  None. | **Apr 2**  <br /> Implement a response time study <br /> ✍️  [Bott & Noveck (2004)](https://canvas.stanford.edu/files/12702646/download?download_frd=1) <br />  ✍️  Chapters 1, 8, & 9 of [Experimentology](https://experimentology.io). |
+| 2 | **Apr 7**  <br /> Linking hypotheses. Types of psycholinguistic data. <br /> ✍️  [Tanenhaus (2004)](https://canvas.stanford.edu/files/12702648/download?download_frd=1). <br /> ✍️  [Breheny et al (2006)](https://canvas.stanford.edu/files/12702666/download?download_frd=1) <br /> ✍️  [Sun & Breheny (2020)](https://canvas.stanford.edu/files/12702667/download?download_frd=1) |  **Apr 9** <br /> **Apr 16** <br /> Implement a self-paced reading time study. <br /> ✍️  Submit working version. |
+| 3 | **Apr 14** <br /> What is open science? What is pre-registration? <br /> ✍️  [Wilson et al. (2017)]() <br /> ✍️  Chapters 3 and 11 of [Experimentology](https://experimentology.io). | **Apr 16** <br /> Version control and data management. <br /> ✍️  Chapter 13, Appendix B of [Experimentology](https://experimentology.io) <br />  |
+| 4 | **Apr 21**  <br /> Lightning presentations. | **Apr 23** <br /> Serverless deployment using GitHub Pages + Datapipe <br /> ✍️  [de Leeuw, J. R. (2024)]()  |
+| 5 | **Apr 28**  <br /> Power and sample size justification. <br /> ✍️  [Button et al. (2013)]() <br /> ✍️  [Lakens (2022)]() <br /> ✍️  Chapter 10 and 12 of [Experimentology](https://experimentology.io) | **Apr 30** <br /> Run a power analysis in R. |
+| 6 | **May 5**   <br /> Exploratory data analysis. How to make good figures. <br /> ✍️  [Franconeri et al. (2021)]() <br /> ✍️  Chapter 15 of [Experimentology](https://experimentology.io)  | **May 7** <br /> Experiment workshop. Using dplyr + ggplot. <br /> Chapters 2 -- 5 of [Gerstenberg (2025)](https://psych252.github.io/psych252book/index.html) |
+| 7 | **May 12**  <br />  Basics of statistical estimation and inference. <br /> ✍️  Chapters 5, 6, and 7.1 of [Experimentology]() <br /> ✍️  Chapter 1, 2, and 5 of [Statistical Thinking](https://statsthinking21.github.io/statsthinking21-core-site/introduction.html). <br /> ✍️  [Calin-Jageman & Cumming (2019)]()  | **May 14** <br /> Analyze a dataset together with `lm`. <br />  ✍️  Chapters 10 -- 13 of Gerstenberg (2025). |
+| 8 | **May 19** <br /> Handling random effects at the item-level and subject-level. <br /> ✍️  [Yarkoni (2022)]() <br /> ✍️  [Barr et al. (2013)]() | **May 21** <br /> Run a mixed-effects regression with `lmer`. <br /> ✍️  Chapters 17 -- 20 of Gerstenberg (2025).  |
+| 9 | **May 26** <br /> NO CLASS -- MEMORIAL DAY | **May 28**  Data analysis workshop. <br /> ✍️  None. |
+| 10 | **Jun 2**  <br />  Final presentations. | **Jun 4**  <br /> Final presentations | 
 
 ## Project timeline
 
 | Week | Action |
 |:----:|:----|
-| 1 | Pick paper to replicate, send choice to teaching staff. |
-| 2 | Meet about your project with point person. |
-| 3 | Create a GitHub repo for your project, initialize jspsych, add stimuli. |
-| 4 | Give lightning project presentation and start continue implementing experiment. |
-| 5 | Submit first draft of experiment and pre-registration. |
-| 6 | Implement feedback, submit final version. |
-| 7 | Run experiment. Push anonymized data to repo. |
-| 8 | Analyze data. Push R scripts to repo. |
-| 9 | Visualize data. Push figures to repo. |
-| 10 | Present project. |
-| 11 | Submit writeup. |
+| 1 | Pick a paper to replicate, submit your choice via Canvas. |
+| 2 | Book a 15 minute meeting to discuss your project with your point person. |
+| 3 | Create a GitHub repo for your experiment, initialize jsPsych, add your stimuli. |
+| 4 | Submit a link to initial prototype of experiment to your point person for feedback. |
+| 5 | Submit methods and analysis pre-registration, incorporate feedback on experiment. |
+| 6 | Submit a working link to your experiment to run Pilot B.  |
+| 7 | Finalize experiment for full sample. Get instructor permission to run. |
+| 8 | Submit updated report with analysis pipeline. Run final sample on Prolific. |
+| 9 | Push anonymized data to repo. Update replication report with statistical results. |
+| 10 | Push final report to repository. |
 
