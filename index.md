@@ -65,9 +65,10 @@ Each student will complete a class project, which will be either a replication o
 
 The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Building 360.
 
-| Week | Date and topic    |  Date and Topic   |
+| Week | 🗣️  Monday    |  💻 Wednesday   |
 |:----:| ---------------------- | ---------------------- |
-| 1 | **Mar 31** <br /> What does it mean to test a theory?  <br /> ✍️  None. | **Apr 2**  <br /> What does it mean to test a theory? <br /> [Popper](https://plato.stanford.edu/entries/popper/#GroHumKno); [Kuhn](https://plato.stanford.edu/entries/thomas-kuhn/#3); [Lakatos](https://en.wikipedia.org/wiki/Imre_Lakatos#Research_programmes)|
+| 1 | **Mar 31** <br /> What does it mean to test a theory?  <br /> ✍️  None. |
+      **Apr 2**  <br /> What does it mean to test a theory? <br /> [Popper](https://plato.stanford.edu/entries/popper/#GroHumKno); [Kuhn](https://plato.stanford.edu/entries/thomas-kuhn/#3); [Lakatos](https://en.wikipedia.org/wiki/Imre_Lakatos#Research_programmes)|
 | 2 | **Apr 7**  <br /> `Skills:` [git tutorial](https://sebschu.github.io/web-based-experiments/tutorials/git/); GitHub repo organization |  **Apr 9** <br /> `SI:` response times  <br />  [Bott & Noveck 2004](https://canvas.stanford.edu/files/12702646/download?download_frd=1) (Grace); [Kursat & Degen 2020](https://canvas.stanford.edu/files/12702668/download?download_frd=1) |
 | 3 | **Apr 14** <br /> `SI:` reading times <br />  [Breheny et al 2006](https://canvas.stanford.edu/files/12702666/download?download_frd=1) (Anjali); [Politzer-Ahles & Husband 2018](https://canvas.stanford.edu/files/12702669/download?download_frd=1) (Wilfred) | **Apr 16** <br /> `SI:` visual world eye-tracking <br />  [Huang & Snedeker 2009](https://canvas.stanford.edu/files/12702665/download?download_frd=1), p. 376-390 (Ting), 404-410; [Sun & Breheny 2020](https://canvas.stanford.edu/files/12702667/download?download_frd=1), p. 949-956, 971-978 (Siva) |
 | 4 | **Apr 21**  <br />  `Project:` Lightning presentations    | **Apr 23** [slides](slides/2_webbased_experiments.pdf) <br />  `Skills:` [Programming experiments in jsPsych](https://sebschu.github.io/web-based-experiments/tutorials/jsPsych/)   |
