@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bott & Noveck (2004) Replication</title>
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.4"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <style>
+        .jspsych-content {
+            max-width: 800px;
+            font-size: 24px;
+            text-align: left;
+        }
+        .sentence {
+            font-size: 28px;
+            margin: 20px;
+            text-align: center;
+        }
+        .instruction-text {
+            font-size: 20px;
+            line-height: 1.5;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .instruction-text ul {
+            padding-left: 30px;
+        }
+        .jspsych-instructions-nav {
+            text-align: center;  /* Center the navigation buttons */
+        }
+    </style>
+</head>
+<body></body>
+<script>
+    // Initialize jsPsych
+    const jsPsych = initJsPsych({
+        on_finish: function() {
+            jsPsych.data.displayData();
+        }
+    });
+
+    // Experiment configuration
+    const config = {
+        isDemo: true,  // Set to true for demo mode, false for full experiment
+        trialsPerType: isDemo => isDemo ? 2 : 9,  // 2 trials per type in demo mode, 9 in full experiment
+        totalTrials: isDemo => isDemo ? 12 : 54    // 12 trials total in demo mode, 54 in full experiment
+    };
+
+    // Define categories and exemplars
+    const categories = {
+        mammals: ['elephants', 'dogs', 'cats', 'monkeys', 'whales', 'horses', 'tigers', 'bears', 'lions'],
+        birds: ['parrots', 'robins', 'eagles', 'sparrows', 'pigeons', 'hawks', 'owls', 'ducks', 'penguins'],
+        fish: ['trout', 'salmon', 'tuna', 'sharks', 'goldfish', 'bass', 'cod', 'sardines', 'mackerel'],
+        insects: ['mosquitoes', 'ants', 'bees', 'flies', 'butterflies', 'beetles', 'crickets', 'wasps', 'grasshoppers'],
+        reptiles: ['snakes', 'lizards', 'turtles', 'crocodiles', 'alligators', 'iguanas', 'geckos', 'chameleons', 'tortoises'],
+        shellfish: ['crabs', 'lobsters', 'shrimp', 'oysters', 'clams', 'mussels', 'scallops', 'crayfish', 'prawns']
+    };
+
+    // Function to generate a single sentence
+    function generateSentence(type, categoryPool) {
+        const availableCategories = Object.keys(categoryPool).filter(
+            cat => categoryPool[cat].length > 0
+        );
+        
+        // Sample one category
+        const [category] = jsPsych.randomization.sampleWithoutReplacement(availableCategories, 1);
+        // Sample one exemplar from that category
+        const [exemplar] = jsPsych.randomization.sampleWithoutReplacement(categoryPool[category], 1);
+        // Remove the used exemplar from the pool
+        categoryPool[category] = categoryPool[category].filter(e => e !== exemplar);
+
+        const sentencePatterns = {
+            1: () => ({
+                sentence: `Some ${exemplar} are ${category}`,
+                correctResponse: 'true'
+            }),
+            2: () => ({
+                sentence: `Some ${category} are ${exemplar}`,
+                correctResponse: 'true'
+            }),
+            3: () => {
+                const [differentCategory] = jsPsych.randomization.sampleWithoutReplacement(
+                    Object.keys(categoryPool).filter(cat => cat !== category),
+                    1
+                );
+                return {
+                    sentence: `Some ${exemplar} are ${differentCategory}`,
+                    correctResponse: 'false'
+                };
+            },
+            4: () => ({
+                sentence: `All ${exemplar} are ${category}`,
+                correctResponse: 'true'
+            }),
+            5: () => ({
+                sentence: `All ${category} are ${exemplar}`,
+                correctResponse: 'false'
+            }),
+            6: () => {
+                const [differentCategory] = jsPsych.randomization.sampleWithoutReplacement(
+                    Object.keys(categoryPool).filter(cat => cat !== category),
+                    1
+                );
+                return {
+                    sentence: `All ${exemplar} are ${differentCategory}`,
+                    correctResponse: 'false'
+                };
+            }
+        };
+
+        const { sentence, correctResponse } = sentencePatterns[type]();
+        return { sentence, type: `T${type}`, correct_response: correctResponse };
+    }
+
+    // Function to generate all sentences
+    function generateSentences() {
+        // Create separate pools for true and false statements
+        const truePool = JSON.parse(JSON.stringify(categories));
+        const falsePool = JSON.parse(JSON.stringify(categories));
+
+        // Get number of trials per type based on demo mode
+        const trialsPerType = config.trialsPerType(config.isDemo);
+
+        // Generate array of sentence types
+        const sentenceTypes = Array.from({ length: 6 }, (_, i) => i + 1)
+            .flatMap(type => Array(trialsPerType).fill(type));
+
+        // Shuffle the sentence types to randomize presentation order
+        const shuffledTypes = jsPsych.randomization.shuffle(sentenceTypes);
+
+        // Generate sentences using the sentence types array
+        const sentences = shuffledTypes.map(type => {
+            const pool = [1, 2, 4].includes(type) ? truePool : falsePool;
+            
+            // Check if we need to reset the pool
+            const availableCategories = Object.keys(pool).filter(
+                cat => pool[cat].length > 0
+            );
+            
+            if (availableCategories.length === 0) {
+                Object.assign(pool, JSON.parse(JSON.stringify(categories)));
+            }
+            
+            return generateSentence(type, pool);
+        });
+
+        return sentences;
+    }
+
+    // Instructions with demo mode indication
+    const instructions = {
+        type: jsPsych.plugins.instructions,
+        pages: [
+            `<div class="instruction-text">
+                <h1>Welcome to the ${config.isDemo ? 'Demo Version of the ' : ''}Experiment!</h1>
+                ${config.isDemo ? '<p><strong>Note: This is a demo version with only ' + config.totalTrials(true) + ' trials.</strong></p>' : ''}
+                <p>In this task, you will see various sentences about animals.</p>
+                <p>Your task is to judge whether each sentence is TRUE or FALSE.</p>
+                <p>Half of the sentences start with the word some, like <i>some daﬀodils are flowers</i>.
+                    This word, <i>some</i>, can be understood in several ways. We would like you to understand it as <i>some but not all</i>.</p>
+                <p>Thus, a sentence like <i>some daﬀodils are flowers</i> should be considered false because, in fact, all daﬀodils are flowers.</p>
+            </div>`,
+            `<div class="instruction-text">
+                <p>For each sentence:</p>
+                <ul>
+                    <li>Press 'F' if you think the sentence is TRUE</li>
+                    <li>Press 'J' if you think the sentence is FALSE</li>
+                </ul>
+                <p>Try to respond as quickly and accurately as possible.</p>
+            </div>`,
+            `<div class="instruction-text">
+                <p>Let's begin!</p>
+                <p>Press the right arrow key to start the experiment.</p>
+            </div>`
+        ],
+        show_clickable_nav: true,
+        key_forward: 'ArrowRight',
+        key_backward: 'ArrowLeft'
+    };
+
+    // Generate trials
+    const sentences = generateSentences();
+    const trials = sentences.map(item => ({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `<div class="sentence">${item.sentence}</div>`,
+        choices: ['f', 'j'],  // F for True, J for False
+        data: {
+            sentence: item.sentence,
+            sentence_type: item.type,
+            correct_response: item.correct_response === 'true' ? 'f' : 'j'  // Map true/false to F/J keys
+        },
+        on_finish: function(data) {
+            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+        }
+    }));
+
+    // Create timeline
+    const timeline = [
+        instructions,
+        ...trials
+    ];
+
+    // Run experiment
+    jsPsych.run(timeline);
+</script>
+</html> 
