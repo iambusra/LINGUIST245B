@@ -5,16 +5,16 @@ LINGUIST 245B
 ## Instructor
 
 | Name:        | Robert Hawkins           | 
-| Contact: | rdhawkins@stanford.edu  | 
-| Office: | 460-030E |
+| Contact:     | rdhawkins@stanford.edu   | 
+| Office:      | 460-030E                 |
 
 Instead of fixed office hours, please book a meeting [here](https://app.usemotion.com/meet/robert-hawkins/meetings?d=30) if you would like to meet! 
 
 ## TA
 
-| Name:        | Emily Goodwin           | 
-| Contact: | goodwine@stanford.edu  | 
-| Office hours: | TBD | 
+| Name:         | Emily Goodwin          | 
+| Contact:      | goodwine@stanford.edu  | 
+| Office hours: | 2-3pm Mondays, MJH-060 | 
 
 ## Course description
 
@@ -88,7 +88,7 @@ The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Bui
 | 3 | Create a GitHub repo for your experiment, initialize jsPsych, add your stimuli. |
 | 4 | Submit a link to initial prototype of experiment to your point person for feedback. |
 | 5 | Submit methods and analysis pre-registration, incorporate feedback on experiment. |
-| 6 | Submit a working link to your experiment to run Pilot B.  |
+| 6 | Run Pilot A (in class). Submit a working link to your experiment for Pilot B.  |
 | 7 | Finalize experiment for full sample. Get instructor permission to run. |
 | 8 | Submit updated report with analysis pipeline. Run final sample on Prolific. |
 | 9 | Push anonymized data to repo. Update replication report with statistical results. |
