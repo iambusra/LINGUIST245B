@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lexical Decision Task</title>
+    <script src="https://unpkg.com/jspsych@7.3.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.2"></script>
+    <link href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <script>
+        // Initialize jsPsych
+        const jsPsych = initJsPsych({
+            on_finish: function() {
+                jsPsych.data.displayData();
+            }
+        });
+
+        // Define stimuli
+        const stimuli = {
+            words: [
+                "house", "book", "tree", "cat", "dog", "bird", "fish", "car", "door", "window",
+            ],
+            nonwords: [
+                "blark", "tremp", "flink", "wug", "biff", "zot", "dax", "fep", "gax", "kib",
+            ]
+        };
+
+        // Create trials
+        const all_stimuli = jsPsych.randomization.shuffle([...stimuli.words, ...stimuli.nonwords]);
+
+        // Create timeline array
+        let timeline = [];
+
+        // Welcome screen
+        const welcome = {
+            type: jsPsychHtmlButtonResponse,
+            stimulus: `
+                <h1>Welcome!</h1>
+                <p>In this experiment, you will see words and nonwords one at a time.</p>
+                <p>Your task is to decide whether each item is a real English word or not.</p>
+                <p>Press the F key for real words</p>
+                <p>Press the J key for nonwords</p>
+                <p>Please respond as quickly and accurately as possible.</p>
+                <p>Press the button below to begin.</p>
+            `,
+            choices: ['Begin']
+        };
+        timeline.push(welcome);
+
+        for (let stimulus of all_stimuli) {
+            // Fixation cross
+            const fixation = {
+                type: jsPsychHtmlKeyboardResponse,
+                stimulus: '<div style="font-size: 72px;">+</div>',
+                choices: "NO_KEYS",
+                trial_duration: 1000
+            };
+            timeline.push(fixation);
+
+            // Stimulus presentation
+            const trial = {
+                type: jsPsychHtmlKeyboardResponse,
+                stimulus: `<div style="font-size: 48px;">${stimulus}</div>`,
+                choices: ['f', 'j'],
+                data: {
+                    stimulus: stimulus,
+                    correct_response: stimuli.words.includes(stimulus) ? 'f' : 'j'
+                },
+                on_finish: function(data){
+                    data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+                }
+
+            };
+            timeline.push(trial);
+        }
+        
+        // End screen
+        const end_screen = {
+            type: jsPsychHtmlButtonResponse,
+            stimulus: `
+                <h1>Thank you for participating!</h1>
+                <p>Your responses have been recorded.</p>
+                <p>Press the button below to see your results.</p>
+            `,
+            choices: ['View Results']
+        };
+        timeline.push(end_screen);
+
+        // Run the experiment
+        jsPsych.run(timeline);
+    </script>
+</body>
+</html> 
