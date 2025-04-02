@@ -6,6 +6,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
     <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.4"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
     <style>
         .jspsych-content {
@@ -30,7 +31,24 @@
             padding-left: 30px;
         }
         .jspsych-instructions-nav {
-            text-align: center;  /* Center the navigation buttons */
+            text-align: center; 
+        }
+        .feedback {
+            font-size: 32px;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
         }
     </style>
 </head>
@@ -45,9 +63,10 @@
 
     // Experiment configuration
     const config = {
-        isDemo: true,  // Set to true for demo mode, false for full experiment
-        trialsPerType: isDemo => isDemo ? 2 : 9,  // 2 trials per type in demo mode, 9 in full experiment
-        totalTrials: isDemo => isDemo ? 12 : 54    // 12 trials total in demo mode, 54 in full experiment
+        isDemo: true,
+        condition: _.sample(['pragmatic', 'literal']),
+        trialsPerType: isDemo => isDemo ? 2 : 9,
+        totalTrials: isDemo => isDemo ? 12 : 54
     };
 
     // Define categories and exemplars
@@ -62,31 +81,22 @@
 
     // Function to generate a single sentence
     function generateSentence(type, categoryPool) {
-        const availableCategories = Object.keys(categoryPool).filter(
-            cat => categoryPool[cat].length > 0
-        );
-        
-        // Sample one category
-        const [category] = jsPsych.randomization.sampleWithoutReplacement(availableCategories, 1);
-        // Sample one exemplar from that category
-        const [exemplar] = jsPsych.randomization.sampleWithoutReplacement(categoryPool[category], 1);
-        // Remove the used exemplar from the pool
-        categoryPool[category] = categoryPool[category].filter(e => e !== exemplar);
+        const availableCategories = _.keys(_.pickBy(categoryPool, arr => arr.length > 0));
+        const category = _.sample(availableCategories);
+        const exemplar = _.sample(categoryPool[category]);
+        categoryPool[category] = _.without(categoryPool[category], exemplar);
 
         const sentencePatterns = {
             1: () => ({
                 sentence: `Some ${exemplar} are ${category}`,
-                correctResponse: 'true'
+                correctResponse: config.condition === 'pragmatic' ? 'false' : 'true'
             }),
             2: () => ({
                 sentence: `Some ${category} are ${exemplar}`,
                 correctResponse: 'true'
             }),
             3: () => {
-                const [differentCategory] = jsPsych.randomization.sampleWithoutReplacement(
-                    Object.keys(categoryPool).filter(cat => cat !== category),
-                    1
-                );
+                const differentCategory = _.sample(_.keys(_.omit(categoryPool, category)));
                 return {
                     sentence: `Some ${exemplar} are ${differentCategory}`,
                     correctResponse: 'false'
@@ -101,10 +111,7 @@
                 correctResponse: 'false'
             }),
             6: () => {
-                const [differentCategory] = jsPsych.randomization.sampleWithoutReplacement(
-                    Object.keys(categoryPool).filter(cat => cat !== category),
-                    1
-                );
+                const differentCategory = _.sample(_.keys(_.omit(categoryPool, category)));
                 return {
                     sentence: `All ${exemplar} are ${differentCategory}`,
                     correctResponse: 'false'
@@ -118,51 +125,43 @@
 
     // Function to generate all sentences
     function generateSentences() {
-        // Create separate pools for true and false statements
-        const truePool = JSON.parse(JSON.stringify(categories));
-        const falsePool = JSON.parse(JSON.stringify(categories));
-
-        // Get number of trials per type based on demo mode
+        const truePool = _.cloneDeep(categories);
+        const falsePool = _.cloneDeep(categories);
         const trialsPerType = config.trialsPerType(config.isDemo);
 
-        // Generate array of sentence types
-        const sentenceTypes = Array.from({ length: 6 }, (_, i) => i + 1)
-            .flatMap(type => Array(trialsPerType).fill(type));
+        const sentenceTypes = _.flatten(
+            _.map(_.range(1, 7), type => _.fill(Array(trialsPerType), type))
+        );
 
-        // Shuffle the sentence types to randomize presentation order
         const shuffledTypes = jsPsych.randomization.shuffle(sentenceTypes);
 
-        // Generate sentences using the sentence types array
-        const sentences = shuffledTypes.map(type => {
-            const pool = [1, 2, 4].includes(type) ? truePool : falsePool;
+        return _.map(shuffledTypes, type => {
+            const pool = _.includes([1, 2, 4], type) ? truePool : falsePool;
             
-            // Check if we need to reset the pool
-            const availableCategories = Object.keys(pool).filter(
-                cat => pool[cat].length > 0
-            );
+            const availableCategories = _.keys(_.pickBy(pool, arr => arr.length > 0));
             
-            if (availableCategories.length === 0) {
-                Object.assign(pool, JSON.parse(JSON.stringify(categories)));
+            if (_.isEmpty(availableCategories)) {
+                _.assign(pool, _.cloneDeep(categories));
             }
             
             return generateSentence(type, pool);
         });
-
-        return sentences;
     }
 
-    // Instructions with demo mode indication
+    // Instructions with condition-specific text
     const instructions = {
-        type: jsPsych.plugins.instructions,
+        type: jsPsychInstructions,
         pages: [
             `<div class="instruction-text">
                 <h1>Welcome to the ${config.isDemo ? 'Demo Version of the ' : ''}Experiment!</h1>
                 ${config.isDemo ? '<p><strong>Note: This is a demo version with only ' + config.totalTrials(true) + ' trials.</strong></p>' : ''}
                 <p>In this task, you will see various sentences about animals.</p>
                 <p>Your task is to judge whether each sentence is TRUE or FALSE.</p>
-                <p>Half of the sentences start with the word some, like <i>some daﬀodils are flowers</i>.
-                    This word, <i>some</i>, can be understood in several ways. We would like you to understand it as <i>some but not all</i>.</p>
-                <p>Thus, a sentence like <i>some daﬀodils are flowers</i> should be considered false because, in fact, all daﬀodils are flowers.</p>
+                <p>Half of the sentences start with the word some, like <i>some daffodils are flowers</i>.
+                    ${config.condition === 'pragmatic' 
+                        ? 'This word, <i>some</i>, can be understood in several ways. We would like you to understand it as <i>some but not all</i>. Thus, a sentence like <i>some daffodils are flowers</i> should be considered false because, in fact, all daffodils are flowers.'
+                        : 'This word, <i>some</i>, can be understood in several ways. We would like you to understand it as <i>some and possibly all</i>. Thus, a sentence like <i>some daffodils are flowers</i> should be considered true because some and, in fact, all daffodils are flowers.'}
+                </p>
             </div>`,
             `<div class="instruction-text">
                 <p>For each sentence:</p>
@@ -178,31 +177,53 @@
             </div>`
         ],
         show_clickable_nav: true,
-        key_forward: 'ArrowRight',
-        key_backward: 'ArrowLeft'
     };
 
     // Generate trials
     const sentences = generateSentences();
-    const trials = sentences.map(item => ({
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<div class="sentence">${item.sentence}</div>`,
-        choices: ['f', 'j'],  // F for True, J for False
-        data: {
-            sentence: item.sentence,
-            sentence_type: item.type,
-            correct_response: item.correct_response === 'true' ? 'f' : 'j'  // Map true/false to F/J keys
-        },
-        on_finish: function(data) {
-            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
-        }
-    }));
+    const trials = _.map(sentences, item => {
+        // Create the main trial
+        const mainTrial = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `<div class="sentence">${item.sentence}</div>`,
+            choices: ['f', 'j'],
+            data: {
+                sentence: item.sentence,
+                sentence_type: item.type,
+                condition: config.condition,
+                correct_response: item.correct_response === 'true' ? 'f' : 'j'
+            },
+            on_finish: function(data) {
+                data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+            }
+        };
+
+        // Create the feedback trial
+        const feedbackTrial = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: function() {
+                const lastTrial = jsPsych.data.get().last(1).values()[0];
+                const isCorrect = lastTrial.correct;
+                return `<div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+                    ${isCorrect ? 'Correct!' : 'Incorrect'}
+                </div>`;
+            },
+            choices: "NO_KEYS",
+            trial_duration: 500, 
+            data: {
+                task: 'feedback'
+            }
+        };
+
+        // Return both trials as an array
+        return [mainTrial, feedbackTrial];
+    });
+
+    // Flatten the trials array since we now have pairs of trials
+    const flattenedTrials = _.flatten(trials);
 
     // Create timeline
-    const timeline = [
-        instructions,
-        ...trials
-    ];
+    const timeline = _.concat(instructions, flattenedTrials);
 
     // Run experiment
     jsPsych.run(timeline);
