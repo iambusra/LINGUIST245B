@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Truth Judgment Task - Template</title>
+    <!-- Load required jsPsych plugins -->
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.4"></script>
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+        .jspsych-content {
+            max-width: 800px;
+            font-size: 24px;
+            text-align: left;
+        }
+        .sentence {
+            font-size: 28px;
+            margin: 20px;
+            text-align: center;
+        }
+        .instruction-text {
+            font-size: 20px;
+            line-height: 1.5;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .instruction-text ul {
+            padding-left: 30px;
+        }
+        .jspsych-instructions-nav {
+            text-align: center; 
+        }
+        .feedback {
+            font-size: 32px;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+</style>
+<body></body>
+<script>
+    // Initialize jsPsych
+    const jsPsych = initJsPsych({
+        on_finish: function() {
+            jsPsych.data.displayData();
+        }
+    });
+
+    // Define your sentence here
+    const sentence = "Some elephants are mammals";
+    const correctResponse = "f"; 
+
+    // Write instructions
+    const instructions = {
+        type: jsPsychInstructions,
+        pages: [
+            `<div class="instruction-text">
+                <h1>Welcome to the Truth Judgment Task!</h1>
+                <p>In this task, you will see a sentence about animals.</p>
+                <p>Your task is to judge whether each sentence is TRUE or FALSE.</p>
+            </div>`,
+            `<div class="instruction-text">
+                <p>For each sentence:</p>
+                <ul>
+                    <li>Press 'F' if you think the sentence is TRUE</li>
+                    <li>Press 'J' if you think the sentence is FALSE</li>
+                </ul>
+                <p>Try to respond as quickly and accurately as possible.</p>
+            </div>`,
+            `<div class="instruction-text">
+                <p>Let's begin!</p>
+                <p>Press the right arrow key to start the experiment.</p>
+            </div>`,
+        ],
+        show_clickable_nav: true
+    };
+
+    // Main trial
+    const mainTrial = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: sentence,
+        choices: ['f', 'j'],
+        data: {
+            correctResponse: correctResponse
+        },
+        on_finish: function(data) {
+            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correctResponse);
+        }
+    };
+
+    // Create the feedback trial
+    const feedbackTrial = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function() {
+            const lastTrial = jsPsych.data.get().last(1).values()[0];
+            const isCorrect = lastTrial.correct;
+            return `<div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">
+                ${isCorrect ? 'Correct!' : 'Incorrect'}
+            </div>`;
+        },
+        choices: "NO_KEYS",
+        trial_duration: 500, 
+        data: {
+            task: 'feedback'
+        }
+    };
+
+
+    // Create timeline
+    const timeline = [instructions, mainTrial, feedbackTrial];
+
+    // Run experiment
+    jsPsych.run(timeline);
+</script>
+</html> 

@@ -64,7 +64,7 @@
     // Experiment configuration
     const config = {
         isDemo: true,
-        condition: _.sample(['pragmatic', 'literal']),
+        condition: _.sample(['pragmatic', 'logical']),
         trialsPerType: isDemo => isDemo ? 2 : 9,
         totalTrials: isDemo => isDemo ? 12 : 54
     };
@@ -73,9 +73,9 @@
     const categories = {
         mammals: ['elephants', 'dogs', 'cats', 'monkeys', 'whales', 'horses', 'tigers', 'bears', 'lions'],
         birds: ['parrots', 'robins', 'eagles', 'sparrows', 'pigeons', 'hawks', 'owls', 'ducks', 'penguins'],
-        fish: ['trout', 'salmon', 'tuna', 'sharks', 'goldfish', 'bass', 'cod', 'sardines', 'mackerel'],
+        fish: ['trout', 'salmon', 'tuna', 'sharks', 'anchovies', 'carp', 'cod', 'haddock', 'piranha'],
         insects: ['mosquitoes', 'ants', 'bees', 'flies', 'butterflies', 'beetles', 'crickets', 'wasps', 'grasshoppers'],
-        reptiles: ['snakes', 'lizards', 'turtles', 'crocodiles', 'alligators', 'iguanas', 'geckos', 'chameleons', 'tortoises'],
+        reptiles: ['snakes', 'lizards', 'tortoises', 'crocodiles', 'alligators', 'iguanas', 'newts', 'salamanders', 'chameleons'],
         shellfish: ['crabs', 'lobsters', 'shrimp', 'oysters', 'clams', 'mussels', 'scallops', 'crayfish', 'prawns']
     };
 
@@ -84,43 +84,40 @@
         const availableCategories = _.keys(_.pickBy(categoryPool, arr => arr.length > 0));
         const category = _.sample(availableCategories);
         const exemplar = _.sample(categoryPool[category]);
+        const differentCategory = _.sample(_.keys(_.omit(categoryPool, category)));
+
+        // remove exemplar from categoryPool    
         categoryPool[category] = _.without(categoryPool[category], exemplar);
 
         const sentencePatterns = {
-            1: () => ({
+            T1: () => ({
                 sentence: `Some ${exemplar} are ${category}`,
                 correctResponse: config.condition === 'pragmatic' ? 'false' : 'true'
             }),
-            2: () => ({
+            T2: () => ({
                 sentence: `Some ${category} are ${exemplar}`,
                 correctResponse: 'true'
             }),
-            3: () => {
-                const differentCategory = _.sample(_.keys(_.omit(categoryPool, category)));
-                return {
-                    sentence: `Some ${exemplar} are ${differentCategory}`,
-                    correctResponse: 'false'
-                };
-            },
-            4: () => ({
+            T3: () => ({
+                sentence: `Some ${exemplar} are ${differentCategory}`,
+                correctResponse: 'false'
+            }),
+            T4: () => ({
                 sentence: `All ${exemplar} are ${category}`,
                 correctResponse: 'true'
             }),
-            5: () => ({
+            T5: () => ({
                 sentence: `All ${category} are ${exemplar}`,
                 correctResponse: 'false'
             }),
-            6: () => {
-                const differentCategory = _.sample(_.keys(_.omit(categoryPool, category)));
-                return {
-                    sentence: `All ${exemplar} are ${differentCategory}`,
-                    correctResponse: 'false'
-                };
-            }
+            T6: () => ({
+                sentence: `All ${exemplar} are ${differentCategory}`,
+                correctResponse: 'false'
+            })
         };
 
         const { sentence, correctResponse } = sentencePatterns[type]();
-        return { sentence, type: `T${type}`, correct_response: correctResponse };
+        return { sentence, correctResponse, type };
     }
 
     // Function to generate all sentences
@@ -130,13 +127,13 @@
         const trialsPerType = config.trialsPerType(config.isDemo);
 
         const sentenceTypes = _.flatten(
-            _.map(_.range(1, 7), type => _.fill(Array(trialsPerType), type))
+            _.map(_.range(1, 7), type => _.fill(Array(trialsPerType), `T${type}`))
         );
 
         const shuffledTypes = jsPsych.randomization.shuffle(sentenceTypes);
 
         return _.map(shuffledTypes, type => {
-            const pool = _.includes([1, 2, 4], type) ? truePool : falsePool;
+            const pool = _.includes(['T1', 'T2', 'T4'], type) ? truePool : falsePool;
             
             const availableCategories = _.keys(_.pickBy(pool, arr => arr.length > 0));
             
@@ -189,12 +186,12 @@
             choices: ['f', 'j'],
             data: {
                 sentence: item.sentence,
-                sentence_type: item.type,
+                sentenceType: item.type,
                 condition: config.condition,
-                correct_response: item.correct_response === 'true' ? 'f' : 'j'
+                correctResponse: item.correctResponse === 'true' ? 'f' : 'j'
             },
             on_finish: function(data) {
-                data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+                data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correctResponse);
             }
         };
 

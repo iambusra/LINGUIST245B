@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Truth Judgment Task</title>
+    <!-- Load required jsPsych plugins -->
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.4"></script>
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+<body></body>
+<script>
+    // Initialize jsPsych
+    const jsPsych = initJsPsych({
+        on_finish: function() {
+            jsPsych.data.displayData();
+        }
+    });
+
+    // Write instructions
+    const instructions = {
+        type: jsPsychInstructions,
+        pages: [
+            `<div">
+                <h1>Welcome to the Truth Judgment Task!</h1>
+                <p>In this task, you will see a sentence about animals.</p>
+                <p>Your task is to judge whether the sentence is TRUE or FALSE.</p>
+            </div>`
+        ]
+    };
+
+    // Create timeline
+    const timeline = [instructions];
+
+    // Run experiment
+    jsPsych.run(timeline);
+</script>
+</html> 
