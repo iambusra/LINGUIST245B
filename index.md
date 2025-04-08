@@ -17,8 +17,8 @@ Instead of fixed office hours, please book a meeting [here](https://app.usemotio
 | Office hours: | 2-3pm Mondays, MJH-060 | 
 
 | Name:         | Jinyoung Jo          | 
-| Contact:      | jyjo@stanford.edu  | 
-| Office hours: | 12:30-2:30pm Tuesdays, MJH-112 | 
+| Contact:      | jinyoungjo@stanford.edu  | 
+| Office hours: | 11:30-11:30pm Tuesdays, MJH-112 | 
 
 ## Course description
 
