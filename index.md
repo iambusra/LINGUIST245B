@@ -10,11 +10,15 @@ LINGUIST 245B
 
 Instead of fixed office hours, please book a meeting [here](https://app.usemotion.com/meet/robert-hawkins/meetings?d=30) if you would like to meet! 
 
-## TA
+## TAs
 
 | Name:         | Emily Goodwin          | 
 | Contact:      | goodwine@stanford.edu  | 
 | Office hours: | 2-3pm Mondays, MJH-060 | 
+
+| Name:         | Jinyoung Jo          | 
+| Contact:      | jyjo@stanford.edu  | 
+| Office hours: | 12:30-2:30pm Tuesdays, MJH-112 | 
 
 ## Course description
 
@@ -54,7 +58,7 @@ If you feel overwhelmed by any of these except (1), don't worry. It will take wo
 We'll be making use of original papers, blog posts / online articles, as well as the following textbooks:
 
 1. Gelman, A., & Hill, J. (2007). [Data analysis using regression and multilevel/hierarchical models](https://canvas.stanford.edu/files/15066456/download?download_frd=1). Cambridge University Press.
-3. Frank, M.C., Braginsky, M., Cachia, J.,  Coles, N., Hardwicke, T., Hawkins, R., Mathur, M., and Williams, R. (2025). [Experimentology: An Open Science Approach to Experimental Psychology Methods](https://experimentology.io/). MIT Press. 
+2. Frank, M.C., Braginsky, M., Cachia, J.,  Coles, N., Hardwicke, T., Hawkins, R., Mathur, M., and Williams, R. (2025). [Experimentology: An Open Science Approach to Experimental Psychology Methods](https://experimentology.io/). MIT Press. 
 
 ## Course format
 
