@@ -10,11 +10,15 @@ LINGUIST 245B
 
 Instead of fixed office hours, please book a meeting [here](https://app.usemotion.com/meet/robert-hawkins/meetings?d=30) if you would like to meet! 
 
-## TA
+## TAs
 
 | Name:         | Emily Goodwin          | 
 | Contact:      | goodwine@stanford.edu  | 
 | Office hours: | 2-3pm Mondays, MJH-060 | 
+
+| Name:         | Jinyoung Jo          | 
+| Contact:      | jinyoungjo@stanford.edu  | 
+| Office hours: | 11:30-11:30pm Tuesdays, MJH-112 | 
 
 ## Course description
 
@@ -54,7 +58,7 @@ If you feel overwhelmed by any of these except (1), don't worry. It will take wo
 We'll be making use of original papers, blog posts / online articles, as well as the following textbooks:
 
 1. Gelman, A., & Hill, J. (2007). [Data analysis using regression and multilevel/hierarchical models](https://canvas.stanford.edu/files/15066456/download?download_frd=1). Cambridge University Press.
-3. Frank, M.C., Braginsky, M., Cachia, J.,  Coles, N., Hardwicke, T., Hawkins, R., Mathur, M., and Williams, R. (2025). [Experimentology: An Open Science Approach to Experimental Psychology Methods](https://experimentology.io/). MIT Press. 
+2. Frank, M.C., Braginsky, M., Cachia, J.,  Coles, N., Hardwicke, T., Hawkins, R., Mathur, M., and Williams, R. (2025). [Experimentology: An Open Science Approach to Experimental Psychology Methods](https://experimentology.io/). MIT Press. 
 
 ## Course format
 
@@ -85,7 +89,7 @@ The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Bui
 |:----:|:----|
 | 1 | Pick a paper to replicate, submit your choice via Canvas. |
 | 2 | Book a 15 minute meeting to discuss your project with your point person. |
-| 3 | Create a GitHub repo for your experiment, initialize jsPsych, add your stimuli. |
+| 3 | Create a GitHub repo for your experiment, complete CITI training. |
 | 4 | Submit a link to initial prototype of experiment to your point person for feedback. |
 | 5 | Submit methods and analysis pre-registration, incorporate feedback on experiment. |
 | 6 | Run Pilot A (in class). Submit a working link to your experiment for Pilot B.  |
