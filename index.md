@@ -89,7 +89,7 @@ The course will meet Mondays and Wednesdays from 3:00-4:20pm in McMurtry Art Bui
 |:----:|:----|
 | 1 | Pick a paper to replicate, submit your choice via Canvas. |
 | 2 | Book a 15 minute meeting to discuss your project with your point person. |
-| 3 | Create a GitHub repo for your experiment, initialize jsPsych, add your stimuli. |
+| 3 | Create a GitHub repo for your experiment, complete CITI training. |
 | 4 | Submit a link to initial prototype of experiment to your point person for feedback. |
 | 5 | Submit methods and analysis pre-registration, incorporate feedback on experiment. |
 | 6 | Run Pilot A (in class). Submit a working link to your experiment for Pilot B.  |
