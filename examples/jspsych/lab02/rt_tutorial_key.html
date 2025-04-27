@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Language Study</title>
+  <!-- Load JsPsych -->
+  <script src="https://unpkg.com/jspsych@7.3.3"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-instructions@1.1.4"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.2"></script>
+  <link href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+  <!-- Stimuli loaded here:  -->
+  <script src = "stims.js"></script> 
+</head>
+<body>
+  <script>
+    // Initialize jsPsych
+    const jsPsych = initJsPsych({
+      show_progress_bar: true,
+      on_finish: function() {
+        // Displays data at the end of the experiment
+        // Better to comment out for the real experiment so participants aren't confused
+        jsPsych.data.displayData();
+      }
+    });
+
+
+    // We will store each trial in a list called timeline 
+    const timeline = [];
+
+    // Preload the stims
+    // This is not in the blank version! 
+    // This ensures all the stims are loaded before the experiment starts
+    // prevents the time-to-load-stim interfering with the reading time measures. 
+    // More important in RT tasks or when you want to load pictures 
+    const preload = {
+      type: jsPsychPreload,
+      auto_preload: true
+    };
+    timeline.push(preload);
+
+    // Instructions
+    const instructions = {
+      type: jsPsychInstructions,
+      pages: [
+        '<div class="content"><h2>Self-Paced Reading Time Study</h2>' +
+        '<p>In this experiment, you will read sentences one word at a time.</p>' +
+        '<p>Press the <strong>SPACEBAR</strong> to reveal each word.</p>' +
+        '<p>Please read at a natural pace, as you normally would.</p>' +
+        '<p>Press the SPACEBAR to begin.</p></div>'
+      ],
+      show_clickable_nav: false,
+      key_forward: ' '
+    };
+    timeline.push(instructions);
+
+    // Function to create reading trials for a sentence
+    function createReadingTrials(item, itemNum) {
+      const foo = experimentStimuli.map(item => item.sentence);
+      console.log(foo)
+
+      const sentence = item.sentence;
+      const condition = item.condition;
+      const trials = [];
+      
+      // fixate between sentences 
+      trials.push({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '<div class="fixation">+</div>',
+        choices: "NO_KEYS",
+        trial_duration: 500,
+        response_ends_trial: false,
+        data: {
+          task: 'fixation',
+          sentence_num: itemNum
+        }
+      });
+      
+      // Message to prepare for next sentence 
+      trials.push({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: 'Press SPACEBAR to read the next sentence',
+        choices: [' '],
+        data: {
+          task: 'get_ready',
+          sentence_num: itemNum
+        }
+      });
+
+      // Loops over every word in the sentence 
+      // Each word is its own trial 
+      for (let i = 0; i < sentence.length; i++) {
+        trials.push({
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: sentence[i],
+          choices: [' '],
+          data: {
+            task: 'reading',
+            word: sentence[i],
+            word_position: i + 1,
+            sentence_num: itemNum,
+            condition: condition
+          }
+        });
+      }
+      
+      return trials;
+    }
+
+  
+  // Shuffle the stims to randomize presentation order
+  jsPsych.randomization.repeat(experimentStimuli, 1);
+  // Loop over the sentences and make trails for each one.
+    for (let i = 0; i < experimentStimuli.length; i++) {
+      const readingTrials = createReadingTrials(experimentStimuli[i], i + 1);
+      timeline.push(...readingTrials);
+    }
+
+    // Nice to tell participants they are done, thank you, etc
+    const completion = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div class="content"><h2>Thank you!</h2>' +
+                '<p>The experiment is now complete.</p>' +
+                '<p>Press the SPACEBAR to see your reading time data.</p></div>',
+      choices: [' ']
+    };
+    timeline.push(completion);
+
+    // This line actually runs the experiment 
+    jsPsych.run(timeline);
+  </script>
+</body>
+</html>
